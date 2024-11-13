@@ -59,16 +59,16 @@ onMounted(fetchTasks);
   </div>
   <ul>
     <li v-for="task in taskStore.tasks" :key="task.id" class="border-b py-2">
-      <div class="flex justify-between">
-        <div>
-          <h2 class="font-semibold">{{ task.title }}</h2>
-          <p>Due Date: {{ formatDate(task.dueDate) }} | Priority: {{ task.priority }} | Status: {{ task.status }}</p>
-          <p>{{ task.description }}</p>
+      <div class="flex justify-between items-start p-4 bg-gray-100 rounded-lg shadow-md">
+        <div class="flex-1">
+          <h2 class="font-semibold text-xl text-blue-600">{{ task.title }}</h2>
+          <p class="text-sm text-gray-600">Due Date: {{ formatDate(task.dueDate) }} | Priority: <span class="font-bold">{{ task.priority }}</span> | Status: <span class="font-bold">{{ task.status }}</span></p>
+          <p class="mt-2 text-gray-800">{{ task.description }}</p>
         </div>
-        <div>
+        <div class="flex flex-col items-end">
           <button v-if="task.status === 'pending'" @click="() => completeTask(task._id)"
-            class="bg-green-500 text-white px-2 py-1">Complete</button>
-          <button @click="() => deleteTask(task._id)" class="bg-red-500 text-white px-2 py-1">Delete</button>
+            class="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600 transition">Complete</button>
+          <button @click="() => deleteTask(task._id)" class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 transition mt-2">Delete</button>
         </div>
       </div>
     </li>

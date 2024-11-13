@@ -22,7 +22,6 @@ export const useTaskStore = defineStore('task', () => {
     const completeTask = async (id) => {
         try {
             await api.completeTask(id);
-            fetchTasks();
         } catch (error) {
             console.error('Error completing task:', error);
         }
@@ -31,7 +30,6 @@ export const useTaskStore = defineStore('task', () => {
     const deleteTask = async (id) => {
         try {
             await api.deleteTask(id);
-            fetchTasks();
         } catch (error) {
             console.error('Error deleting task:', error);
         }

@@ -15,10 +15,12 @@ const fetchTasks = () => {
 
 const completeTask = (id) => {
   taskStore.completeTask(id);
+  fetchTasks();
 };
 
 const deleteTask = (id) => {
   taskStore.deleteTask(id);
+  fetchTasks();
 };
 
 const changePage = (page) => {
@@ -40,7 +42,8 @@ onMounted(fetchTasks);
     </div>
     <div class="my-4">
       <input v-model="titleSearch" placeholder="Search by title" @input="fetchTasks" class="border p-2 mr-2" />
-      <input v-model="descriptionSearch" placeholder="Search by description" @input="fetchTasks" class="border p-2 mr-2" />
+      <input v-model="descriptionSearch" placeholder="Search by description" @input="fetchTasks"
+        class="border p-2 mr-2" />
       <select v-model="statusFilter" @change="fetchTasks" class="border p-2 mr-2">
         <option value="completed">Completed</option>
         <option value="pending">Pending</option>
@@ -62,7 +65,8 @@ onMounted(fetchTasks);
           <p>{{ task.description }}</p>
         </div>
         <div>
-          <button v-if="task.status === 'pending'" @click="() => completeTask(task._id)" class="bg-green-500 text-white px-2 py-1">Complete</button>
+          <button v-if="task.status === 'pending'" @click="() => completeTask(task._id)"
+            class="bg-green-500 text-white px-2 py-1">Complete</button>
           <button @click="() => deleteTask(task._id)" class="bg-red-500 text-white px-2 py-1">Delete</button>
         </div>
       </div>

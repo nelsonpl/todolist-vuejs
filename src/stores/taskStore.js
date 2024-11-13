@@ -8,9 +8,9 @@ export const useTaskStore = defineStore('task', () => {
     const currentPage = ref(1);
     const itemsPerPage = 10;
 
-    const fetchTasks = async () => {
+    const fetchTasks = async (status, search, priority) => {
         try {
-            const { data } = await api.getTasks(currentPage.value, itemsPerPage);
+            const { data } = await api.getTasks(currentPage.value, itemsPerPage, status, search, priority);
             tasks.value = data.data;
             totalItems.value = data.totalItems;
             currentPage.value = data.currentPage;

@@ -3,12 +3,14 @@ import axios from 'axios';
 const API_URL = process.env.VUE_APP_API_URL; 
 
 export const api = {
-  getTasks: (page, limit) => 
+  getTasks: (page, limit, status, search, priority) => 
     axios.get(`${API_URL}/tasks`, { 
       params: { 
         page,   
         limit,
-        status: 'pending'
+        status,
+        search,
+        priority
       } 
     }),
   createTask: (task) => axios.post(`${API_URL}/tasks`, task),

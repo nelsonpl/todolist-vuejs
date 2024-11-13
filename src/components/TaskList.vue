@@ -1,26 +1,20 @@
 <script setup>
-import { onMounted, ref } from 'vue';
+import { onMounted } from 'vue';
 import { useTaskStore } from '../stores/taskStore';
 import TaskModal from './TaskModal.vue';
 
 const taskStore = useTaskStore();
-const titleSearch = ref('');
-const descriptionSearch = ref('');
-const statusFilter = ref('pending');
-const priorityFilter = ref('');
 
 const fetchTasks = () => {
-  taskStore.fetchTasks(statusFilter.value, titleSearch.value, priorityFilter.value);
+  taskStore.fetchTasks();
 };
 
 const completeTask = (id) => {
   taskStore.completeTask(id);
-  fetchTasks();
 };
 
 const deleteTask = (id) => {
   taskStore.deleteTask(id);
-  fetchTasks();
 };
 
 const changePage = (page) => {
@@ -42,14 +36,12 @@ onMounted(fetchTasks);
       <TaskModal />
     </div>
     <div class="my-4">
-      <input v-model="titleSearch" placeholder="Search by title" @input="fetchTasks" class="border p-2 mr-2" />
-      <input v-model="descriptionSearch" placeholder="Search by description" @input="fetchTasks"
-        class="border p-2 mr-2" />
-      <select v-model="statusFilter" @change="fetchTasks" class="border p-2 mr-2">
+      <input v-model="taskStore.search" placeholder="Search by title" @input="fetchTasks" class="border p-2 mr-2" />
+      <select v-model="taskStore.status" @change="fetchTasks" class="border p-2 mr-2">
         <option value="completed">Completed</option>
         <option value="pending">Pending</option>
       </select>
-      <select v-model="priorityFilter" @change="fetchTasks" class="border p-2">
+      <select v-model="taskStore.priority" @change="fetchTasks" class="border p-2">
         <option value="">All Priorities</option>
         <option value="high">High</option>
         <option value="medium">Medium</option>
@@ -62,13 +54,16 @@ onMounted(fetchTasks);
       <div class="flex justify-between items-start p-4 bg-gray-100 rounded-lg shadow-md">
         <div class="flex-1">
           <h2 class="font-semibold text-xl text-blue-600">{{ task.title }}</h2>
-          <p class="text-sm text-gray-600">Due Date: {{ formatDate(task.dueDate) }} | Priority: <span class="font-bold">{{ task.priority }}</span> | Status: <span class="font-bold">{{ task.status }}</span></p>
+          <p class="text-sm text-gray-600">Due Date: {{ formatDate(task.dueDate) }} | Priority: <span
+              class="font-bold">{{ task.priority }}</span> | Status: <span class="font-bold">{{ task.status }}</span>
+          </p>
           <p class="mt-2 text-gray-800">{{ task.description }}</p>
         </div>
         <div class="flex flex-col items-end">
           <button v-if="task.status === 'pending'" @click="() => completeTask(task._id)"
             class="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600 transition">Complete</button>
-          <button @click="() => deleteTask(task._id)" class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 transition mt-2">Delete</button>
+          <button @click="() => deleteTask(task._id)"
+            class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 transition mt-2">Delete</button>
         </div>
       </div>
     </li>

@@ -28,6 +28,7 @@ const changePage = (page) => {
 };
 
 const formatDate = (date) => {
+  if (!date) return '';
   return new Date(date).toLocaleDateString();
 };
 

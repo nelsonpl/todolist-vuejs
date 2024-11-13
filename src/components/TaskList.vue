@@ -58,7 +58,7 @@ onMounted(fetchTasks);
     </div>
   </div>
   <ul>
-    <li v-for="task in taskStore.tasks" :key="task.id" class="border-b py-2">
+    <li v-for="task in taskStore.tasks" :key="task._id" class="border-b py-2">
       <div class="flex justify-between items-start p-4 bg-gray-100 rounded-lg shadow-md">
         <div class="flex-1">
           <h2 class="font-semibold text-xl text-blue-600">{{ task.title }}</h2>

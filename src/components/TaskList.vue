@@ -1,6 +1,7 @@
 <script setup>
 import { onMounted, ref } from 'vue';
 import { useTaskStore } from '../stores/taskStore';
+import TaskModal from './TaskModal.vue';
 
 const taskStore = useTaskStore();
 const titleSearch = ref('');
@@ -33,7 +34,10 @@ onMounted(fetchTasks);
 
 <template>
   <div class="p-4">
-    <h1 class="text-2xl font-bold">Task List ({{ taskStore.totalItems }})</h1>
+    <div class="flex justify-between items-center">
+      <h1 class="text-2xl font-bold">Task List ({{ taskStore.totalItems }})</h1>
+      <TaskModal />
+    </div>
     <div class="my-4">
       <input v-model="titleSearch" placeholder="Search by title" @input="fetchTasks" class="border p-2 mr-2" />
       <input v-model="descriptionSearch" placeholder="Search by description" @input="fetchTasks" class="border p-2 mr-2" />

@@ -1,6 +1,5 @@
 <script setup>
 import TaskList from './components/TaskList.vue';
-import AddTaskForm from './components/AddTaskForm.vue';
 </script>
 
 <template>
@@ -10,7 +9,6 @@ import AddTaskForm from './components/AddTaskForm.vue';
   </header>
   <div id="app">
     <div class="container mx-auto">
-      <AddTaskForm />
       <TaskList />
     </div>
   </div>
